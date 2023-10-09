@@ -7,7 +7,7 @@ steps:
       - >
         gcloud functions deploy modify-gcs-uploads-func --project="$$PROJECT_ID" --gen2 --runtime="go121"
         --trigger-event-filters="type=google.cloud.storage.object.v1.finalized"
-        --trigger-event-filters="bucket=$$BUCKET"
+        --trigger-event-filters="bucket=$$BUCKET" --trigger-location="us"
         --entry-point="ModifyGcsUpload" --region="$$REGION" --source="." --ingress-settings="internal-only"
         --no-allow-unauthenticated --retry --trigger-service-account="$$TRIGGER_SA" --run-service-account="$$RUN_SA"
         --service-account="$$FUNCTION_SA"
