@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-const secondsInYear = 5
+const secondsInYear = 31536000
 
 type App struct {
 	logger        *logging.Logger
