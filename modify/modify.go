@@ -55,7 +55,7 @@ func GcsUploadEvent(a *App) func(context.Context, cloudevents.Event) error {
 			Payload:  fmt.Sprintf("processing object %s/%s", eventData.Bucket, eventData.Name),
 		})
 
-		if !strings.HasPrefix(eventData.Name, "images/") {
+		if !strings.Contains(eventData.Name, "images/") {
 			a.logger.Log(logging.Entry{
 				Severity: logging.Info,
 				Payload:  fmt.Sprintf("skipping object %s/%s", eventData.Bucket, eventData.Name),
@@ -91,7 +91,7 @@ func GcsUploadEvent(a *App) func(context.Context, cloudevents.Event) error {
 		}
 
 		_, err = object.Update(ctx, storage.ObjectAttrsToUpdate{
-			CacheControl: fmt.Sprintf("public, max-age=%s", strconv.Itoa(secondsInYear)),
+			CacheControl: fmt.Sprintf("public, max-age=%s, immutable", strconv.Itoa(secondsInYear)),
 		})
 		if err != nil {
 			a.logger.Log(logging.Entry{
